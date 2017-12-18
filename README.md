@@ -36,10 +36,23 @@ $ dotnet new console --force -lang VB -n dotnet-cli-usage-console-VB
 ```
 Created a new folder named "dotnet-cli-usage-console-VB.vbproj" with .vbproj and program.vb
 
-#### I will skip path "-o"
-
-#### Install a template pack from the PATH or NUGET_ID
+### Build - configuration
+Default option build is Debug.
+#### -c (configuration)
 ```sh
-$ dotnet new --install "Microsoft.AspNetCore.SpaTemplates"
+cd src\dotnet-cli-usage-console
+dotnet build -c Release
 ```
-more info click [this](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates) and [this](https://blogs.msdn.microsoft.com/dotnet/2017/04/02/how-to-create-your-own-templates-for-dotnet-new/)
+#### -f (framework)
+```sh
+dotnet build -c Release -f netcoreapp2.0
+```
+#### -o (output directory)
+```sh
+dotnet build -c Release -o output
+```
+### Clean
+```sh
+dotnet clean -c Release
+```
+
