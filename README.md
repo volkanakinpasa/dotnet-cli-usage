@@ -4,43 +4,70 @@ It is not a big deal to learn dotnet cli, I just wanted to create this repositor
 For .NET Core 2.x
 
 ```sh
-$ mkdir dotnet-cli-usage 
-$ cd dotnet-cli-usage
+mkdir dotnet-cli-usage 
+cd dotnet-cli-usage
+mkdir src
+cd src
 ```
 
 #### Create a new console
 ```sh
-$ dotnet new console
+cd src
+dotnet new console
 ```
-output files
-```
-dotnet-cli-usage.csproj
-Program.cs
-``` 
+Created a new console named "dotnet-cli-usage "
+
 if you need to re-create with same name, you must give --force parameter
 ```sh
-$ dotnet new console --force
+cd src
+dotnet new console --force
 /*output is the same.*/    
 ```
 
 #### Create a new console given a name 
 ```sh
-$ dotnet new console --force -n dotnet-cli-usage-console
+cd src
+dotnet new console --force -n dotnet-cli-usage-console
 ```
 Created a new folder named "dotnet-cli-usage-console" with .csproj and program.cs
 
 
-#### Create a new console given a name & a language(Visual Basic)
+#### Create a new console given a name & a language(Visual Basic or C#)
 ```sh
-$ dotnet new console --force -lang VB -n dotnet-cli-usage-console-VB
+cd src
+dotnet new console --force -lang C# -n dotnet-cli-usage-console-CSharp
 ```
-Created a new folder named "dotnet-cli-usage-console-VB.vbproj" with .vbproj and program.vb
+Created a new folder named "dotnet-cli-usage-console-CSharp" with .csproj and program.cs
+
+#### Create a new class library
+```sh
+cd src
+dotnet new classlib -lang C# -n dotnet-cli-usage-class-lib
+```
+Created a new folder named "dotnet-cli-usage-class-lib" with .csproj and Class1.cs
+
+#### Add library project as reference
+```sh
+cd src
+dotnet add dotnet-cli-usage-console/dotnet-cli-usage-console.csproj reference dotnet-cli-usage-class-lib/dotnet-cli-usage-class-lib.csproj
+```
+
+#### Create a sln file
+```sh
+cd src
+dotnet new sln -n dotnet-cli-usage-solution
+dotnet sln dotnet-cli-usage-solution.sln add dotnet-cli-usage-console/dotnet-cli-usage-console.csproj
+dotnet sln dotnet-cli-usage-solution.sln add dotnet-cli-usage-class-lib/dotnet-cli-usage-class-lib.csproj
+
+```
 
 ### Build - configuration
 Default option build is Debug.
 #### -c (configuration)
 ```sh
+dotnet build dotnet-cli-usage-solution.sln
 cd src\dotnet-cli-usage-console
+dotnet build
 dotnet build -c Release
 ```
 #### -f (framework)
@@ -51,8 +78,15 @@ dotnet build -c Release -f netcoreapp2.0
 ```sh
 dotnet build -c Release -o output
 ```
-### Clean
+### Run
 ```sh
-dotnet clean -c Release
-```
+cd src\dotnet-cli-usage-console
+dotnet run
 
+/*
+Output
+
+Hello World!
+Hello from class library 'Class1'!
+*/
+```
